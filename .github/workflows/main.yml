@@ -1,0 +1,54 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Update Submodules 🛎️
+        run: git submodule update --init --recursive
+
+      - name: Setup Ninja 📦
+        uses: ashutoshvarma/setup-ninja@master
+        with:
+          version: 1.10.0
+
+      - name: Install Packages 📦
+        run: |
+          npm ci
+
+      - name: Install and Activate Emscripten 🔧
+        run: |
+          git clone https://github.com/emscripten-core/emsdk
+          cd emsdk
+          ./emsdk install latest
+          ./emsdk activate --embedded latest
+          cd ..
+
+      - name: Build with Cmake 🔧
+        run: |
+          cmake --preset release -B build
+          cmake --build build --preset release
+
+      - name: Building Website 🔧
+        run: |
+          npm run build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: website
