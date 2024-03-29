@@ -3,9 +3,6 @@
 
 #include "world.h"
 
-// batteries
-#include "batteries/colors.h"
-
 void World::Resize(int new_width)
 {
   width = new_width;
@@ -88,9 +85,9 @@ void World::SetWest(const batteries::grid_location<int> &point, const bool &stat
 }
 
 static std::unordered_map<NodeType, Colorf> color_map = {
-    {NodeType::Unvisited, colors::LightGray},
-    {NodeType::Frontier, colors::Salmon},
-    {NodeType::Visited, colors::Black},
+    {NodeType::Unvisited, LightGray},
+    {NodeType::Frontier, Salmon},
+    {NodeType::Visited, Black},
 };
 
 void World::Render()

@@ -1,5 +1,3 @@
-project(maze)
-
 #=== EXECUTABLE: maze
 set(MAZE_HEADERS
   # generators
@@ -24,8 +22,6 @@ set(MAZE_SRC
 add_executable(maze src/game.cpp ${MAZE_SRC} ${MAZE_HEADERS})
 
 target_include_directories(maze INTERFACE maze)
-target_link_libraries(maze engine)
-target_link_libraries(maze imgui)
-target_link_libraries(maze batteries)
+target_link_libraries(maze PRIVATE engine)
 
 emscripten(maze)

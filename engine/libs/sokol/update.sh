@@ -5,28 +5,36 @@
 SOKOL_PREFIX="https://raw.githubusercontent.com/floooh/sokol/master"
 
 # headers
-SOKOL_APP="$SOKOL_PREFIX/sokol_app.h"
-SOKOL_ARGS="$SOKOL_PREFIX/sokol_args.h"
-SOKOL_AUDIO="$SOKOL_PREFIX/sokol_audio.h"
-SOKOL_GFX="$SOKOL_PREFIX/sokol_gfx.h"
-SOKOL_GLUE="$SOKOL_PREFIX/sokol_glue.h"
-SOKOL_LOG="$SOKOL_PREFIX/sokol_log.h"
+SOKOL_APP_H="$SOKOL_PREFIX/sokol_app.h"
+SOKOL_FETCH_H="$SOKOL_PREFIX/sokol_fetch.h"
+SOKOL_GFX_H="$SOKOL_PREFIX/sokol_gfx.h"
+SOKOL_GLUE_H="$SOKOL_PREFIX/sokol_glue.h"
+SOKOL_LOG_H="$SOKOL_PREFIX/sokol_log.h"
+SOKOL_TIME_H="$SOKOL_PREFIX/sokol_time.h"
 
 # utils
-SOKOL_GL="$SOKOL_PREFIX/util/sokol_gl.h"
-SOKOL_IMGUI="$SOKOL_PREFIX/util/sokol_imgui.h"
+SOKOL_GL_H="$SOKOL_PREFIX/util/sokol_gl.h"
+SOKOL_IMGUI_H="$SOKOL_PREFIX/util/sokol_imgui.h"
+SOKOL_SHAPE_H="$SOKOL_PREFIX/util/sokol_shape.h"
+
+# license
+SOKOL_LICENSE="$SOKOL_PREFIX/LICENSE"
 
 # output directory
-OUTPUT=./engine/libs/sokol
+OUTPUT=./libs/sokol
 
 # curl all headers and utils
-curl $SOKOL_APP > $OUTPUT/sokol_app.h
-curl $SOKOL_ARGS > $OUTPUT/sokol_args.h
-curl $SOKOL_ARGS > $OUTPUT/sokol_audio.h
-curl $SOKOL_GFX > $OUTPUT/sokol_gfx.h
-curl $SOKOL_GLUE > $OUTPUT/sokol_glue.h
-curl $SOKOL_LOG > $OUTPUT/sokol_log.h
+curl $SOKOL_APP_H > $OUTPUT/sokol_app.h
+curl $SOKOL_FETCH_H > $OUTPUT/sokol_fetch.h
+curl $SOKOL_GFX_H > $OUTPUT/sokol_gfx.h
+curl $SOKOL_GLUE_H > $OUTPUT/sokol_glue.h
+curl $SOKOL_LOG_H > $OUTPUT/sokol_log.h
+curl $SOKOL_TIME_H > $OUTPUT/sokol_time.h
 
 # utils
-curl $SOKOL_GL > $OUTPUT/sokol_gl.h
-curl $SOKOL_IMGUI > $OUTPUT/sokol_imgui.h
+curl $SOKOL_GL_H > $OUTPUT/sokol_gl.h
+curl $SOKOL_IMGUI_H > $OUTPUT/sokol_imgui.h
+curl $SOKOL_SHAPE_H > $OUTPUT/sokol_shape.h
+
+# license
+curl $SOKOL_LICENSE > $OUTPUT/LICENSE

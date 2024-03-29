@@ -1,5 +1,3 @@
-project(cellular_automata)
-
 #=== EXECUTABLE: cellular_automata
 set(CELLULAR_AUTOMATA_HEADERS
   # rules
@@ -24,8 +22,6 @@ set(CELLULAR_AUTOMATA_SRC
 add_executable(cellular_automata src/game.cpp ${CELLULAR_AUTOMATA_SRC} ${CELLULAR_AUTOMATA_HEADERS})
 
 target_include_directories(cellular_automata INTERFACE cellular_automata)
-target_link_libraries(cellular_automata engine)
-target_link_libraries(cellular_automata imgui)
-target_link_libraries(cellular_automata batteries)
+target_link_libraries(cellular_automata PRIVATE engine)
 
 emscripten(cellular_automata)

@@ -1,5 +1,13 @@
 project(engine)
 
+add_definitions(-DSOKOL_NO_ENTRY)
+# platform selection
+if (CMAKE_SYSTEM_NAME STREQUAL Emscripten)
+  add_definitions(-DSOKOL_GLES3)
+elseif (CMAKE_SYSTEM_NAME STREQUAL Darwin)
+  add_definitions(-DSOKOL_GLCORE33)
+endif()
+
 # what?
 set_property(GLOBAL PROPERTY USE_FOLDERS TRUE)
 define_property(
@@ -7,21 +15,7 @@ define_property(
   PROPERTY FOLDER
   INHERITED
   BRIEF_DOCS "Set the folder name."
-  FULL_DOCS  "Use to organize targets in an IDE."
-)
-
-#  platform selection
-add_definitions(-DSOKOL_NO_DEPRECATED)
-if (CMAKE_SYSTEM_NAME STREQUAL Emscripten)
-  add_definitions(-DSOKOL_GLES3)
-elseif (CMAKE_SYSTEM_NAME STREQUAL Darwin)
-  add_definitions(-DSOKOL_GLCORE33)
-endif()
-
-#=== LIBRARY: external
-include_directories(libs)
-add_subdirectory(libs)
-set_property(DIRECTORY libs PROPERTY FOLDER "libs")
+  FULL_DOCS  "Use to organize targets in an IDE.")
 
 set(COMMON_SRC)
 set(COMMON_HEADERS
@@ -67,11 +61,14 @@ set(ENGINE_HEADERS
   ${MATH_HEADERS}
   ${MOUSE_HEADERS})
 
-include_directories(
-  src)
+include_directories(libs)
+add_subdirectory(libs)
 
 add_library(engine STATIC src/platform.cpp ${ENGINE_SRC} ${ENGINE_HEADERS})
-target_include_directories(engine PUBLIC src)
+target_include_directories(engine PUBLIC src libs)
 
-target_link_libraries(engine sokol)
-target_link_libraries(engine dbgui)
+target_link_libraries(engine PRIVATE sokol)
+target_link_libraries(engine PRIVATE dbgui)
+target_link_libraries(engine PRIVATE stb)
+target_link_libraries(engine PUBLIC imgui)
+target_link_libraries(engine PUBLIC batteries)

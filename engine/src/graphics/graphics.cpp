@@ -23,7 +23,7 @@ namespace
   {
     sg_pass_action pass_action;
     sgl_pipeline pip;
-    sg_context ctx;
+    // sg_context ctx;
 
     float width;
     float height;
@@ -41,17 +41,14 @@ namespace engine
     void setup(void)
     {
       /* setup sokol_gfx */
-      sg_desc desc{
-          .logger = {
-              .func = slog_func,
-          },
-          .context = sapp_sgcontext(),
-      };
-      sg_setup(&desc);
+      sg_setup((sg_desc){
+          .environment = sglue_environment(),
+          .logger.func = slog_func,
+      });
 
       /* create graphics module context */
-      state.ctx = sg_setup_context();
-      sg_activate_context(state.ctx);
+      // state.ctx = sg_setup_context();
+      // sg_activate_context(state.ctx);
 
       /* setup sokol-gl */
       sgl_desc_t sgldesc{0};
@@ -92,7 +89,7 @@ namespace engine
 
       /* initialize sokol matrix */
       sgl_matrix_mode_projection();
-      sgl_ortho(0.0f, (float)state.width, (float)state.height, 0.0f, -10.0f, +10.0f);
+      sgl_ortho(0.0f, state.width, state.height, 0.0f, -10.0f, +10.0f);
 
       /* initialize internal matrix */
       push_transform();
@@ -100,10 +97,10 @@ namespace engine
 
     void cleanup(void)
     {
-      sg_activate_context(state.ctx);
+      // sg_activate_context(state.ctx);
       sgl_destroy_pipeline(state.pip);
       sgl_shutdown();
-      sg_discard_context(state.ctx);
+      // sg_discard_context(state.ctx);
       sg_shutdown();
     }
 
@@ -146,8 +143,8 @@ namespace engine
     void line(float x0, float y0, float x1, float y1)
     {
       /* TODO: draw lines as smol rectangles */
-      std::vector<Vector2f> points{{x0, y0}, {x1, y1}};
-      polyline(&points[0], 2);
+      // std::vector<Vector2f> points{{x0, y0}, {x1, y1}};
+      // polyline(&points[0], 2);
     }
 
     void polyline(const Vector2f *coords, int size)
@@ -254,14 +251,11 @@ namespace engine
 
     void clear(void)
     {
-      sg_activate_context(state.ctx);
-
-      sgl_defaults();
+      // sg_activate_context(state.ctx);
+      // sgl_defaults();
 
       /* render the sokol-gfx default pass */
-      auto width = (int)state.width;
-      auto height = (int)state.height;
-      sg_begin_default_pass(&state.pass_action, width, height);
+      sg_begin_pass({.action = state.pass_action, .swapchain = sglue_swapchain()});
     }
 
     void present(void)

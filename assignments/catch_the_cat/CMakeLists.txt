@@ -1,5 +1,3 @@
-project(catch_the_cat)
-
 #=== EXECUTABLE: catch_the_cat
 set(CATCH_THE_CAT_HEADERS
   # agents
@@ -21,8 +19,6 @@ set(CATCH_THE_CAT_SRC
 add_executable(catch_the_cat src/game.cpp ${CATCH_THE_CAT_SRC} ${CATCH_THE_CAT_HEADERS})
 
 target_include_directories(catch_the_cat INTERFACE catch_the_cat)
-target_link_libraries(catch_the_cat engine)
-target_link_libraries(catch_the_cat imgui)
-target_link_libraries(catch_the_cat batteries)
+target_link_libraries(catch_the_cat PRIVATE engine)
 
 emscripten(catch_the_cat)

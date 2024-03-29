@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
   _config_desc_defaults(&_game);
 
   /* set defaults for description after calling the entry point */
-  sapp_desc desc{
+  sapp_run((sapp_desc){
       .init_cb = init,
       .frame_cb = frame,
       .cleanup_cb = cleanup,
@@ -49,8 +49,7 @@ int main(int argc, char *argv[])
       .width = _game.config.window.width,
       .height = _game.config.window.height,
       .window_title = _game.config.window.title,
-  };
-  sapp_run(&desc);
+  });
   return 0;
 }
 

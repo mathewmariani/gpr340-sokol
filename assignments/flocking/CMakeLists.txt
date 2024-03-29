@@ -1,5 +1,3 @@
-project(flocking)
-
 #=== EXECUTABLE: flocking
 set(FLOCKING_HEADERS
   # agents
@@ -29,7 +27,6 @@ set(FLOCKING_SRC
 add_executable(flocking src/game.cpp ${FLOCKING_SRC} ${FLOCKING_HEADERS})
 
 target_include_directories(flocking INTERFACE flocking)
-target_link_libraries(flocking engine)
-target_link_libraries(flocking imgui)
+target_link_libraries(flocking PRIVATE engine)
 
 emscripten(flocking)

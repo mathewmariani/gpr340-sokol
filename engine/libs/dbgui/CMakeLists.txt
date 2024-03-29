@@ -3,5 +3,5 @@ set(DBGUI_FILES
     dbgui.h)
 
 add_library(dbgui ${DBGUI_FILES})
-target_link_libraries(dbgui imgui)
-target_link_libraries(dbgui sokol)
+target_link_libraries(dbgui PRIVATE imgui)
+target_link_libraries(dbgui PRIVATE sokol)

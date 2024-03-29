@@ -1,5 +1,3 @@
-project(tower-defense)
-
 #=== EXECUTABLE: tower-defense
 set(TOWERDEFENSE_HEADERS
   # heuristic
@@ -40,8 +38,6 @@ set(TOWERDEFENSE_SRC
 add_executable(tower-defense src/game.cpp ${TOWERDEFENSE_SRC} ${TOWERDEFENSE_HEADERS})
 
 target_include_directories(tower-defense INTERFACE tower-defense)
-target_link_libraries(tower-defense engine)
-target_link_libraries(tower-defense imgui)
-target_link_libraries(tower-defense batteries)
+target_link_libraries(tower-defense PRIVATE engine)
 
 emscripten(tower-defense)

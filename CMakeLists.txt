@@ -9,7 +9,6 @@ project(gpr340)
 include("extra/cmake/macros.cmake")
 
 # engine
-include_directories(engine)
 add_subdirectory(engine)
 set_property(DIRECTORY engine PROPERTY FOLDER "engine")
 

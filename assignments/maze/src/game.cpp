@@ -1,7 +1,7 @@
 // engine
 #include "engine/engine.h"
 #include "graphics/graphics.h"
-#include "libs/imgui/imgui.h"
+#include "imgui/imgui.h"
 
 // generators
 #include "generators/mazegenerator.h"

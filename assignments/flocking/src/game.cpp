@@ -2,7 +2,7 @@
 #include "engine/engine.h"
 #include "graphics/graphics.h"
 #include "math/math.h"
-#include "libs/imgui/imgui.h"
+#include "imgui/imgui.h"
 
 /* behaviors */
 #include "behaviors/alignment.h"

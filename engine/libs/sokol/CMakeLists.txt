@@ -7,12 +7,12 @@ endif()
 #=== LIBRARY: sokol
 set(SOKOL_HEADERS
     sokol_app.h
-    sokol_audio.h
     sokol_gfx.h
-    sokol_gl.h
     sokol_glue.h
     sokol_log.h)
+
 add_library(sokol STATIC sokol.c ${SOKOL_HEADERS})
+
 if(CMAKE_SYSTEM_NAME STREQUAL Darwin)
     # compile sokol.c as Objective-C
     target_compile_options(sokol PRIVATE -x objective-c)
@@ -29,4 +29,5 @@ else()
         target_link_libraries(sokol PUBLIC Threads::Threads)
     endif()
 endif()
+
 target_include_directories(sokol INTERFACE sokol)
