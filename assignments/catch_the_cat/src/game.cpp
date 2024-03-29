@@ -2,7 +2,7 @@
 #include "engine/engine.h"
 #include "graphics/graphics.h"
 #include "mouse/mouse.h"
-#include "libs/imgui/imgui.h"
+#include "imgui/imgui.h"
 
 #include "world.h"
 

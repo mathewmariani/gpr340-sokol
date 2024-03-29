@@ -2,10 +2,7 @@
 #include "engine/engine.h"
 #include "graphics/graphics.h"
 #include "mouse/mouse.h"
-#include "libs/imgui/imgui.h"
-
-/* batteries */
-#include "batteries/colors.h"
+#include "imgui/imgui.h"
 
 /* rules */
 #include "rules/rulebase.h"

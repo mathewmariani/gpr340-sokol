@@ -1,16 +1,14 @@
 /* engine */
 #include "graphics/graphics.h"
 #include "math/math.h"
-
-/* batteries */
-#include "batteries/colors.h"
+#include "common/color.h"
 
 #include "world.h"
 
 namespace
 {
-  const static Colorf alive_color = colors::LightYellow;
-  const static Colorf dead_color = colors::DarkSlateGray;
+  const static Colorf alive_color = LightYellow;
+  const static Colorf dead_color = DarkSlateGray;
 }
 
 static inline void wrap(int size, int &x, int &y)

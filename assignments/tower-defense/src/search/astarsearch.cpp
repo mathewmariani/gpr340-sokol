@@ -1,9 +1,6 @@
 // engine
 #include "graphics/graphics.h"
 
-// batteries
-#include "batteries/colors.h"
-
 #include "astarsearch.h"
 #include "../heuristic/heuristic.h"
 
@@ -62,7 +59,7 @@ void AStarSearch::Render()
   while (!tmp.empty())
   {
     auto tile = std::get<0>(tmp.top());
-    engine::graphics::set_color(colors::BlueViolet);
+    engine::graphics::set_color(BlueViolet);
     engine::graphics::rectangle(engine::graphics::DrawMode::DRAW_MODE_LINE, tile.x * 16, tile.y * 16, 16, 16);
     tmp.pop();
   }
