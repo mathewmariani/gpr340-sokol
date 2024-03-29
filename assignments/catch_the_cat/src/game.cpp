@@ -31,11 +31,9 @@ struct
     float y = 0.0f;
   } camera;
 
-  Cat cat;
-  Catcher catcher;
-
+  // Cat cat;
+  // Catcher catcher;
   Hexgrid<bool> grid;
-
   World world;
 } state;
 
