@@ -1,5 +1,3 @@
-project(engine)
-
 add_definitions(-DSOKOL_NO_ENTRY)
 # platform selection
 if (CMAKE_SYSTEM_NAME STREQUAL Emscripten)

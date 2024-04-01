@@ -2,7 +2,11 @@ import fs from "fs";
 import path from "path";
 import Markdown from "markdown-it";
 import Mustache from "mustache";
+import hljs from "highlight.js"
 import { globSync } from "glob";
+
+hljs.registerLanguage("cpp", require("highlight.js/lib/languages/cpp"));
+const md = Markdown({ html: true }).use(require('markdown-it-highlightjs'), { hljs })
 
 // mustache partials
 const page = fs.readFileSync("extra/mustache/page.mustache", "utf8");
@@ -15,7 +19,6 @@ function _buildPage(body: string) {
   console.log("Building page...");
 
   // render markdown to html
-  const md = Markdown({ html: true });
   const view = { body: md.render(body) };
   const partials = { header: header, footer: footer };
 
@@ -53,7 +56,7 @@ function _buildWebsite() {
   }
 
   // glob all .js files
-  const js_glob = globSync("build/assignments/Release/*.js");
+  const js_glob = globSync("build/assignments/**/Release/*.js");
   for (const file of js_glob) {
     const name = path.parse(file).name;
     console.log("found a file:", name);
@@ -65,7 +68,7 @@ function _buildWebsite() {
   }
 
   // glob all .wasm files
-  const wasm_glob = globSync("build/assignments/Release/*.wasm");
+  const wasm_glob = globSync("build/assignments/**/Release/*.wasm");
   for (const file of wasm_glob) {
     const name = path.parse(file).base;
     console.log("found a file:", name);
@@ -76,13 +79,6 @@ function _buildWebsite() {
 
   // copy all images to output directory
   fs.cp("course/images", "website/images", { recursive: true }, (err) => {
-    if (err) {
-      console.error(err);
-    }
-  });
-
-  // copy assets directory
-  fs.cp("assignments/assets", "website/demo/assets", { recursive: true }, (err) => {
     if (err) {
       console.error(err);
     }

@@ -23,7 +23,6 @@ namespace
   {
     sg_pass_action pass_action;
     sgl_pipeline pip;
-    // sg_context ctx;
 
     float width;
     float height;
@@ -41,7 +40,7 @@ namespace engine
     void setup(void)
     {
       /* setup sokol_gfx */
-      sg_setup((sg_desc){
+      sg_setup({
           .environment = sglue_environment(),
           .logger.func = slog_func,
       });
@@ -69,7 +68,8 @@ namespace engine
       };
 
       /* pipeline */
-      sg_pipeline_desc pipdesc{
+
+      state.pip = sgl_make_pipeline({
           .colors = {
               {
                   .blend = {
@@ -79,8 +79,7 @@ namespace engine
                   },
               },
           },
-      };
-      state.pip = sgl_make_pipeline(&pipdesc);
+      });
 
       /* init graphics state*/
       sgl_defaults();
@@ -97,10 +96,8 @@ namespace engine
 
     void cleanup(void)
     {
-      // sg_activate_context(state.ctx);
       sgl_destroy_pipeline(state.pip);
       sgl_shutdown();
-      // sg_discard_context(state.ctx);
       sg_shutdown();
     }
 
@@ -143,8 +140,8 @@ namespace engine
     void line(float x0, float y0, float x1, float y1)
     {
       /* TODO: draw lines as smol rectangles */
-      // std::vector<Vector2f> points{{x0, y0}, {x1, y1}};
-      // polyline(&points[0], 2);
+      std::vector<Vector2f> points{{x0, y0}, {x1, y1}};
+      polyline(&points[0], 2);
     }
 
     void polyline(const Vector2f *coords, int size)
@@ -252,7 +249,7 @@ namespace engine
     void clear(void)
     {
       // sg_activate_context(state.ctx);
-      // sgl_defaults();
+      sgl_defaults();
 
       /* render the sokol-gfx default pass */
       sg_begin_pass({.action = state.pass_action, .swapchain = sglue_swapchain()});

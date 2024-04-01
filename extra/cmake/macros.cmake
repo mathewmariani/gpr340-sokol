@@ -22,9 +22,9 @@ macro(add_assignment target file)
   target_link_libraries(${target} PRIVATE stb)
   target_include_directories(${target} PUBLIC ../libs)
 
-  target_compile_options(${target} PRIVATE -Waddress-of-temporary)
-  target_compile_options(${target} PRIVATE -Wreorder-init-list)
-  target_compile_options(${target} PRIVATE -Wc99-designator)
+  add_compile_options(-Waddress-of-temporary)
+  add_compile_options(-Wreorder-init-list)
+  add_compile_options(-Wc99-designator)
 
   emscripten(${target})
 endmacro()
