@@ -1,25 +1,25 @@
 #=== EXECUTABLE: maze
 set(MAZE_HEADERS
   # generators
-  src/generators/huntandkill.h
-  src/generators/mazegenerator.h
-  src/generators/randomwalk.h
-  src/generators/recursivebacktracker.h
+  generators/huntandkill.h
+  generators/mazegenerator.h
+  generators/randomwalk.h
+  generators/recursivebacktracker.h
 
   # rules
-  src/world.h)
+  world.h)
 
 set(MAZE_SRC
   # generators
-  src/generators/huntandkill.cpp
-  src/generators/randomwalk.cpp
-  src/generators/recursivebacktracker.cpp
+  generators/huntandkill.cpp
+  generators/randomwalk.cpp
+  generators/recursivebacktracker.cpp
 
   # rules
-  src/world.cpp
-  src/game.cpp)
+  world.cpp
+  game.cpp)
 
-add_executable(maze src/game.cpp ${MAZE_SRC} ${MAZE_HEADERS})
+add_executable(maze game.cpp ${MAZE_SRC} ${MAZE_HEADERS})
 
 target_include_directories(maze INTERFACE maze)
 target_link_libraries(maze PRIVATE engine)

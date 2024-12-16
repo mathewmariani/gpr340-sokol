@@ -1,3 +1,0 @@
-# Tower Defense
-
-Tower Defense
