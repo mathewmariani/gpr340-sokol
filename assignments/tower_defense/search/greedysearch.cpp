@@ -4,17 +4,13 @@
 
 #include "greedysearch.h"
 
-void GreedySearch::Clear(World &world)
+std::unordered_map<batteries::grid_location<int>, batteries::grid_location<int>> GreedySearch::Find(World &world, const batteries::grid_location<int> &start)
 {
-  frontier.clear();
-  reached.clear();
-}
-
-void GreedySearch::Find(World &world, const batteries::grid_location<int> &start)
-{
-  // add to frontier
+  std::vector<batteries::grid_location<int>> frontier;
   frontier.push_back(start);
-  reached.insert({start, true});
+
+  std::unordered_map<batteries::grid_location<int>, batteries::grid_location<int>> came_from;
+  came_from.insert({start, start});
 
   while (!frontier.empty())
   {
@@ -24,15 +20,17 @@ void GreedySearch::Find(World &world, const batteries::grid_location<int> &start
 
     for (const auto &next : visitables)
     {
-      if (!reached.contains(next))
+      if (!came_from.contains(next))
       {
         frontier.push_back(next);
-        reached.insert({next, true});
+        came_from.insert({next, current});
       };
     }
 
     frontier.erase(frontier.begin());
   }
+
+  return came_from;
 }
 
 std::vector<batteries::grid_location<int>> GreedySearch::getVisitables(World &world, const batteries::grid_location<int> &point)

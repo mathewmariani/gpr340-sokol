@@ -20,7 +20,10 @@ namespace batteries
     static std::array<grid_location<T>, 4> VonNewmanNeighborhood;
 
     T x, y;
+    grid_location() : x(0), y(0) {}
     grid_location(T x_, T y_) : x(x_), y(y_) {}
+    grid_location(const grid_location &) = default;
+    grid_location(grid_location &&) = default;
     grid_location<T> operator+(const grid_location<T> &rhs) const
     {
       return {x + rhs.x, y + rhs.y};

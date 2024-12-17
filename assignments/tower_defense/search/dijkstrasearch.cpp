@@ -4,16 +4,13 @@
 
 #include "dijkstrasearch.h"
 
-void DijkstraSearch::Clear(World &world)
+std::unordered_map<batteries::grid_location<int>, batteries::grid_location<int>> DijkstraSearch::Find(World &world, const batteries::grid_location<int> &start)
 {
-  frontier.clear();
-  distance.clear();
-}
-
-void DijkstraSearch::Find(World &world, const batteries::grid_location<int> &start)
-{
+  std::vector<batteries::grid_location<int>> frontier;
   frontier.push_back(start);
-  distance.insert({start, 0});
+
+  std::unordered_map<batteries::grid_location<int>, batteries::grid_location<int>> came_from;
+  came_from.insert({start, start});
 
   while (!frontier.empty())
   {
@@ -23,15 +20,17 @@ void DijkstraSearch::Find(World &world, const batteries::grid_location<int> &sta
 
     for (const auto &next : visitables)
     {
-      if (!distance.contains(next))
+      if (!came_from.contains(next))
       {
         frontier.push_back(next);
-        distance.insert({next, 1 + distance[current]});
+        came_from.insert({next, current});
       };
     }
 
     frontier.erase(frontier.begin());
   }
+
+  return came_from;
 }
 
 std::vector<batteries::grid_location<int>> DijkstraSearch::getVisitables(World &world, const batteries::grid_location<int> &point)

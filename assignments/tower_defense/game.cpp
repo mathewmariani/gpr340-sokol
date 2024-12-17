@@ -80,9 +80,7 @@ namespace maze
   {
     state.simulator.is_simulating = false;
     state.world.Resize(state.demo.current_size);
-
     auto *solver = state.searchers[state.demo.rule_index].get();
-    solver->Clear(state.world);
   }
 }
 
@@ -236,6 +234,7 @@ static void gui()
       if (ImGui::Selectable(state.searchers[n]->GetName().c_str(), is_selected))
       {
         state.demo.rule_index = n;
+        state.searchers[n].get()->Find(state.world, *state.world.GetStart());
         maze::clear();
       }
       if (is_selected)
