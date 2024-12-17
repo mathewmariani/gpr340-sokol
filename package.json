@@ -17,7 +17,6 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
     "@types/markdown-it": "^13.0.7",
     "@types/mustache": "^4.2.5"
   }
