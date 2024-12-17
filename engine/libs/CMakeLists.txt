@@ -1,5 +1,0 @@
-add_subdirectory(batteries)
-add_subdirectory(sokol)
-add_subdirectory(imgui)
-add_subdirectory(dbgui)
-add_subdirectory(stb)

@@ -11,11 +11,10 @@ The syllabus for this course was developed by Alexandre Tolstenko ([@tolstenko](
 
 *   `assignments/` – Assignment template and assets.
 *   `build/` - Intermediate files and other build output. 
-*   `course/` - Instructions for completing assignments.
 *   `engine/` - A small educational engine.
 *   `extra/` - Files used during the build process.
 *   `libs/` - Required external libraries.
-*   `scripts/` – Scripts used for building the website.
+*   `resources/` – Scripts and resources used for building the website.
 
 
 ## Contributing

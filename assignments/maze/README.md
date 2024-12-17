@@ -1,3 +1,0 @@
-# Maze
-
-Maze Generation
