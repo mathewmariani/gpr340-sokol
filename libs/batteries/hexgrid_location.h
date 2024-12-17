@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <vector>
 
 namespace batteries
@@ -7,14 +8,8 @@ namespace batteries
   template <typename T>
   struct hexgrid_location
   {
-    static hexgrid_location<T> NorthWest;
-    static hexgrid_location<T> North;
-    static hexgrid_location<T> NorthEast;
-    static hexgrid_location<T> East;
-    static hexgrid_location<T> SouthEast;
-    static hexgrid_location<T> South;
-
-    static std::vector<hexgrid_location<T>> Neighborhood;
+    static std::array<hexgrid_location<T>, 6> Neighborhood;
+    static std::array<hexgrid_location<T>, 6> Diagonals;
 
     T q_, r_;
     hexgrid_location(T q, T r, T s) : q_(q), r_(r) {}
@@ -47,26 +42,23 @@ namespace batteries
   };
 
   template <typename T>
-  hexgrid_location<T> hexgrid_location<T>::NorthWest{+1, 0, -1};
-  template <typename T>
-  hexgrid_location<T> hexgrid_location<T>::North{+1, -1, 0};
-  template <typename T>
-  hexgrid_location<T> hexgrid_location<T>::NorthEast{0, -1, +1};
-  template <typename T>
-  hexgrid_location<T> hexgrid_location<T>::East{-1, 0, +1};
-  template <typename T>
-  hexgrid_location<T> hexgrid_location<T>::SouthEast{-1, +1, 0};
-  template <typename T>
-  hexgrid_location<T> hexgrid_location<T>::South{0, +1, -1};
+  std::array<hexgrid_location<T>, 6> hexgrid_location<T>::Neighborhood{
+      hexgrid_location<T>{+1, 0, -1},
+      hexgrid_location<T>{+1, -1, 0},
+      hexgrid_location<T>{0, -1, +1},
+      hexgrid_location<T>{-1, 0, +1},
+      hexgrid_location<T>{-1, +1, 0},
+      hexgrid_location<T>{0, +1, -1},
+  };
 
   template <typename T>
-  std::vector<hexgrid_location<T>> hexgrid_location<T>::Neighborhood{
-      hexgrid_location<T>::NorthWest,
-      hexgrid_location<T>::North,
-      hexgrid_location<T>::NorthEast,
-      hexgrid_location<T>::East,
-      hexgrid_location<T>::SouthEast,
-      hexgrid_location<T>::South,
+  std::array<hexgrid_location<T>, 6> hexgrid_location<T>::Diagonals{
+      hexgrid_location<T>{+2, -1, -1},
+      hexgrid_location<T>{+1, -2, +1},
+      hexgrid_location<T>{-1, -1, +2},
+      hexgrid_location<T>{-2, +1, +1},
+      hexgrid_location<T>{-1, +2, -1},
+      hexgrid_location<T>{+1, +1, -2},
   };
 
   template class hexgrid_location<int>;

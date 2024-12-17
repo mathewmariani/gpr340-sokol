@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <array>
 
 namespace batteries
 {
@@ -16,8 +16,8 @@ namespace batteries
     static grid_location<T> SouthWest;
     static grid_location<T> West;
 
-    static std::vector<grid_location<T>> MooresNeighborhood;
-    static std::vector<grid_location<T>> VonNewmanNeighborhood;
+    static std::array<grid_location<T>, 8> MooresNeighborhood;
+    static std::array<grid_location<T>, 4> VonNewmanNeighborhood;
 
     T x, y;
     grid_location(T x_, T y_) : x(x_), y(y_) {}
@@ -59,7 +59,7 @@ namespace batteries
   grid_location<T> grid_location<T>::West{-1, +0};
 
   template <typename T>
-  std::vector<grid_location<T>> grid_location<T>::MooresNeighborhood{
+  std::array<grid_location<T>, 8> grid_location<T>::MooresNeighborhood{
       grid_location<T>::NorthWest,
       grid_location<T>::North,
       grid_location<T>::NorthEast,
@@ -71,7 +71,7 @@ namespace batteries
   };
 
   template <typename T>
-  std::vector<grid_location<T>> grid_location<T>::VonNewmanNeighborhood{
+  std::array<grid_location<T>, 4> grid_location<T>::VonNewmanNeighborhood{
       grid_location<T>::North,
       grid_location<T>::East,
       grid_location<T>::South,
