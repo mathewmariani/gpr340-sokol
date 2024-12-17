@@ -7,7 +7,7 @@
 
 /* batteries */
 #include "batteries/agent.h"
-#include "batteries/colors.h"
+#include "common/color.h"
 
 namespace
 {
@@ -135,7 +135,7 @@ public:
       auto y0 = position.y;
       auto x1 = x0 + cache.acceleration.x * debug.radius;
       auto y1 = y0 + cache.acceleration.y * debug.radius;
-      engine::graphics::set_color(colors::Honeydew);
+      engine::graphics::set_color(Honeydew);
       engine::graphics::line(x0, y0, x1, y1);
     }
 
@@ -145,7 +145,7 @@ public:
       auto y0 = position.y;
       auto x1 = x0 + cache.mouse_force.x * debug.radius;
       auto y1 = y0 + cache.mouse_force.y * debug.radius;
-      engine::graphics::set_color(colors::Crimson);
+      engine::graphics::set_color(Crimson);
       engine::graphics::line(x0, y0, x1, y1);
     }
 
@@ -158,7 +158,7 @@ public:
       // auto x1 = x0 + std::cosf(debug.wind_direction) * debug.radius;
       // auto y1 = y0 + std::sinf(debug.wind_direction) * debug.radius;
 
-      engine::graphics::set_color(colors::CornflowerBlue);
+      engine::graphics::set_color(CornflowerBlue);
       engine::graphics::line(x0, y0, x1, y1);
     }
 
@@ -247,7 +247,7 @@ static void draw(void)
 
     auto mx = width - (debug.margin * 2);
     auto my = height - (debug.margin * 2);
-    engine::graphics::set_color(colors::WhiteSmoke);
+    engine::graphics::set_color(WhiteSmoke);
     engine::graphics::rectangle(line, debug.margin, debug.margin, mx, my);
   }
   if (_boid)

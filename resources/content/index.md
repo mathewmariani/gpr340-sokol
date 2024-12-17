@@ -27,6 +27,7 @@ Before working on any project it's important to understand the [development envi
 *   [assignment 3][] - Tower Defense
 *   [assignment 4][] - Catch the Cat
 *   [assignment 5][] - Flocking
+*   [assignment 6][] - Ants
 
 
 ### Final Project

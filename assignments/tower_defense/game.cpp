@@ -2,10 +2,7 @@
 #include "engine/engine.h"
 #include "mouse/mouse.h"
 #include "graphics/graphics.h"
-#include "libs/imgui/imgui.h"
-
-// batteries
-#include "batteries/colors.h"
+#include "imgui/imgui.h"
 
 // search
 #include "search/astarsearch.h"
@@ -152,7 +149,7 @@ static void draw(void)
   auto y = engine::mouse::get_y();
   auto t = mouse_to_tile(x, y);
 
-  engine::graphics::set_color(colors::CornflowerBlue);
+  engine::graphics::set_color(CornflowerBlue);
   engine::graphics::rectangle(engine::graphics::DrawMode::DRAW_MODE_FILL, t.x * 16, t.y * 16, 16, 16);
 
   /* pop the camera */
