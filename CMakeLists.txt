@@ -18,6 +18,8 @@ include("extra/cmake/imgui.cmake")
 include("extra/cmake/sokol.cmake")
 include("extra/cmake/stb.cmake")
 
+include_directories(${THIRDPARTY_DIR})
+
 # engine
 add_subdirectory(engine)
 set_property(DIRECTORY engine PROPERTY FOLDER "engine")

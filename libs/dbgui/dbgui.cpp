@@ -1,28 +1,28 @@
 /* sokol */
-#include "../sokol/sokol_gfx.h"
-#include "../sokol/sokol_app.h"
-#include "../sokol/sokol_glue.h"
+#include "sokol/sokol_gfx.h"
+#include "sokol/sokol_app.h"
+#include "sokol/sokol_glue.h"
 
 /* imgui */
-#include "../imgui/imgui.h"
+#include "imgui/imgui.h"
 
 #define SOKOL_IMGUI_IMPL
-#include "../sokol/sokol_imgui.h"
+#include "sokol/sokol_imgui.h"
 
 extern "C"
 {
   namespace
   {
-    static struct
-    {
-      sg_pass_action pass_action;
-    } state;
+    sg_pass pass;
   }
   void __dbgui_setup(void)
   {
     simgui_setup((simgui_desc_t){0});
-    state.pass_action = {
-        .colors = {{.load_action = SG_LOADACTION_DONTCARE}},
+    pass = (sg_pass){
+        .action = {
+            .colors = {{.load_action = SG_LOADACTION_DONTCARE}},
+        },
+        .swapchain = sglue_swapchain(),
     };
   }
 
@@ -43,7 +43,7 @@ extern "C"
 
   void __dbgui_end(void)
   {
-    sg_begin_pass({.action = state.pass_action, .swapchain = sglue_swapchain()});
+    sg_begin_pass(&pass);
     simgui_render();
     sg_end_pass();
     sg_commit();
@@ -52,5 +52,9 @@ extern "C"
   void __dbgui_event(const sapp_event *ev)
   {
     simgui_handle_event(ev);
+    if (ImGui::GetIO().WantCaptureMouse && (ev->type == SAPP_EVENTTYPE_MOUSE_DOWN || ev->type == SAPP_EVENTTYPE_MOUSE_MOVE))
+    {
+      return;
+    }
   }
 }
