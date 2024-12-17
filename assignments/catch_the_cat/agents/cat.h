@@ -10,5 +10,5 @@ class Cat : public Agent
 {
 public:
   explicit Cat() = default;
-  Hex<int> Move(World &world) override;
+  batteries::hexgrid_location<int> Move(World &world) override;
 };

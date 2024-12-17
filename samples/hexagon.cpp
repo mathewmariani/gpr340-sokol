@@ -98,10 +98,10 @@ namespace
     } camera;
 
     HexOrientation layout = layout_pointy;
-    Hex<int> current_hex{0, 0, 0};
+    batteries::hexgrid_location<int> current_hex{0, 0, 0};
   } state;
 
-  Hexgrid<bool> grid(5);
+  batteries::hexgrid<bool> grid(5);
 }
 
 static void load(void);
@@ -112,12 +112,12 @@ static void gui(void);
 
 static void mouse_moved(float, float, float, float);
 
-inline Hex<int> mouse_to_hex(float x, float y)
+inline batteries::hexgrid_location<int> mouse_to_hex(float x, float y)
 {
   const auto size = (800.0f / (grid.get_radius() * 2 + 1)) * 0.5;
-  auto fractional_hex = Hexgrid<int>::pixel_to_hex(state.layout, size, x - 400, y - 400);
+  auto fractional_hex = batteries::hexgrid<int>::pixel_to_hex(state.layout, size, x - 400, y - 400);
 
-  return Hexgrid<int>::hex_round(fractional_hex);
+  return batteries::hexgrid<int>::hex_round(fractional_hex);
 }
 
 game_desc game_main(int argv, char *argc[])
