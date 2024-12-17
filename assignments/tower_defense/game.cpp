@@ -49,7 +49,11 @@ static struct
 
   World world;
   std::vector<std::unique_ptr<Search>> searchers;
+  std::vector<batteries::grid_location<int>> path;
 } state;
+
+batteries::grid_location<int> start{0, 0};
+batteries::grid_location<int> goal{16, 16};
 
 inline batteries::grid_location<int> mouse_to_tile(float x, float y)
 {
@@ -60,9 +64,9 @@ inline batteries::grid_location<int> mouse_to_tile(float x, float y)
   y -= state.camera.y;
 
   const auto size = 16; //(800.0f / (grid.get_radius() * 2 + 1)) * 0.5;
-  auto fractional_tile = batteries::finite_grid<Node>::pixel_to_tile(size, x, y);
+  auto fractional_tile = batteries::finite_grid<NodeType>::pixel_to_tile(size, x, y);
 
-  return batteries::finite_grid<Node>::tile_round(fractional_tile);
+  return batteries::finite_grid<NodeType>::tile_round(fractional_tile);
 }
 
 namespace maze
@@ -117,10 +121,9 @@ static void update(float dt)
   if (state.mouse.is_drag)
   {
     auto curr_tile = mouse_to_tile(state.mouse.x, state.mouse.y);
-    auto *start = state.world.GetStart();
-    if (curr_tile == *start)
+    if (curr_tile == start)
     {
-      *start = curr_tile;
+      start = curr_tile;
     }
   }
 }
@@ -140,13 +143,21 @@ static void draw(void)
   /* draw nodes */
   state.world.Render();
 
-  // auto *searcher = state.searchers[state.demo.rule_index].get();
-  // searcher->Render();
+  for (const auto t : state.path)
+  {
+    engine::graphics::set_color(Purple);
+    engine::graphics::rectangle(engine::graphics::DrawMode::DRAW_MODE_FILL, t.x * 16, t.y * 16, 16, 16);
+  }
 
   auto x = engine::mouse::get_x();
   auto y = engine::mouse::get_y();
   auto t = mouse_to_tile(x, y);
 
+  /* draw start and goal */
+  engine::graphics::set_color(Green);
+  engine::graphics::rectangle(engine::graphics::DrawMode::DRAW_MODE_FILL, start.x * 16, start.y * 16, 16, 16);
+  engine::graphics::set_color(Red);
+  engine::graphics::rectangle(engine::graphics::DrawMode::DRAW_MODE_FILL, goal.x * 16, goal.y * 16, 16, 16);
   engine::graphics::set_color(CornflowerBlue);
   engine::graphics::rectangle(engine::graphics::DrawMode::DRAW_MODE_FILL, t.x * 16, t.y * 16, 16, 16);
 
@@ -234,8 +245,8 @@ static void gui()
       if (ImGui::Selectable(state.searchers[n]->GetName().c_str(), is_selected))
       {
         state.demo.rule_index = n;
-        state.searchers[n].get()->Find(state.world, *state.world.GetStart());
-        maze::clear();
+        auto t = state.searchers[n].get()->Find(state.world, start);
+        state.path = Search::ConstructPath(t, start, goal);
       }
       if (is_selected)
       {

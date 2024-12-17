@@ -10,21 +10,14 @@ void World::Resize(int new_width)
   auto padded_width = width + 1;
   size = padded_width * padded_width;
 
-  maze.resize(padded_width);
-
-  Node *node;
+  grid.resize(padded_width);
   for (auto j = 0; j < padded_width; ++j)
   {
     for (auto i = 0; i < padded_width; ++i)
     {
-      node = &maze.at({i, j});
-      node->type = NodeType::Empty;
+      grid.at({i, j}) = NodeType::Empty;
     }
   }
-
-  // create start
-  start = RandomPoint();
-  // SetNodeType(start, NodeType::Start);
 }
 
 void World::Randomize(float chance)
@@ -35,7 +28,7 @@ void World::Randomize(float chance)
     {
       auto rand = engine::math::random(0.0f, 1.0f);
       auto type = (rand < chance) ? NodeType::Empty : NodeType::Wall;
-      maze.at({x, y}).type = type;
+      grid.at({x, y}) = type;
     }
   }
 }
@@ -48,19 +41,19 @@ batteries::grid_location<int> World::RandomPoint() const
   };
 }
 
-Node World::GetNode(const batteries::grid_location<int> &point)
+NodeType World::GetNode(const batteries::grid_location<int> &point)
 {
-  return maze.at(point);
+  return grid.at(point);
 }
 
 const NodeType World::GetNodeType(const batteries::grid_location<int> &point) const
 {
-  return maze.at(point).type;
+  return grid.at(point);
 }
 
 void World::SetNodeType(const batteries::grid_location<int> &point, NodeType type)
 {
-  maze.at(point).type = type;
+  grid.at(point) = type;
 }
 
 static std::unordered_map<NodeType, Colorf> color_map = {
@@ -88,10 +81,4 @@ void World::Render()
       }
     }
   }
-
-  /* draw start and goal */
-  engine::graphics::set_color(color_map[NodeType::Start]);
-  engine::graphics::rectangle(engine::graphics::DrawMode::DRAW_MODE_FILL, start.x * 16, start.y * 16, 16, 16);
-  engine::graphics::set_color(color_map[NodeType::Goal]);
-  engine::graphics::rectangle(engine::graphics::DrawMode::DRAW_MODE_FILL, goal.x * 16, goal.y * 16, 16, 16);
 }
