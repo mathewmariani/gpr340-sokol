@@ -25,7 +25,8 @@ Before working on any project it's important to understand the [development envi
 *   [assignment 1][] - Cellular Automata
 *   [assignment 2][] - Maze Generation
 *   [assignment 3][] - Tower Defense
-*   [assignment 4][] - Flocking
+*   [assignment 4][] - Catch the Cat
+*   [assignment 5][] - Flocking
 
 
 ### Final Project
@@ -36,8 +37,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 [@tolstenko]: https://github.com/tolstenko
 [OpenGL SuperBible]: https://www.openglsuperbible.com/
 [FAQ]: faq.html
-[assignment 0]: cellular_automata.html
-[assignment 1]: maze.html
-[assignment 2]: tower_defense.html
-[assignment 3]: flocking.html
+[assignment 1]: cellular_automata.html
+[assignment 2]: maze_generation.html
+[assignment 3]: tower_defense.html
+[assignment 4]: catch_the_cat.html
+[assignment 5]: flocking.html
 [development environment]: environment.html

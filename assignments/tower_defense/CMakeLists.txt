@@ -1,4 +1,4 @@
-#=== EXECUTABLE: tower-defense
+#=== EXECUTABLE: tower_defense
 set(TOWERDEFENSE_HEADERS
   # heuristic
   heuristic/heuristic.h
@@ -35,9 +35,9 @@ set(TOWERDEFENSE_SRC
   world.cpp
   game.cpp)
 
-add_executable(tower-defense game.cpp ${TOWERDEFENSE_SRC} ${TOWERDEFENSE_HEADERS})
+add_executable(tower_defense game.cpp ${TOWERDEFENSE_SRC} ${TOWERDEFENSE_HEADERS})
 
-target_include_directories(tower-defense INTERFACE tower-defense)
-target_link_libraries(tower-defense PRIVATE engine)
+target_include_directories(tower_defense INTERFACE tower_defense)
+target_link_libraries(tower_defense PRIVATE engine)
 
-emscripten(tower-defense)
+emscripten(tower_defense)

@@ -52,6 +52,7 @@ function _buildAssignments() {
   const md_glob = globSync(`${assignments_path}/*.md`);
   md_glob.forEach((file: string) => {
     const name = path.parse(file).name;
+    console.log(name)
     const body = fs.readFileSync(file, "utf8");
     const page = Mustache.render(body, { demo: demo });
     const content = Mustache.render(_buildPage(page), { script: `demos/${name}.js` });
@@ -101,7 +102,6 @@ function _buildWebsite() {
   // copy to output
   _copyDirectory("resources/images", "website/images");
   _copyDirectory("resources/assets", "website/assets");
-  _copyDirectory("assignments/assets", "website/assets");
 }
 
 // main.js

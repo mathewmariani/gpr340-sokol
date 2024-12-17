@@ -2,7 +2,7 @@
   "scripts": {
     "cmake": "cmake --preset release -B build && cmake --build build --preset release",
     "emsdk": "git clone https://github.com/emscripten-core/emsdk && cd emsdk && ./emsdk install latest && ./emsdk activate --embedded latest && cd ..",
-    "build": "ts-node scripts/build.ts",
+    "build": "ts-node resources/build.ts",
     "libs:imgui": "./libs/imgui/update.sh",
     "libs:sokol": "./libs/sokol/update.sh",
     "libs:stb": "./libs/stb/update.sh"

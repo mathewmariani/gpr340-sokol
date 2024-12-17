@@ -19,9 +19,9 @@ set(MAZE_SRC
   world.cpp
   game.cpp)
 
-add_executable(maze game.cpp ${MAZE_SRC} ${MAZE_HEADERS})
+add_executable(maze_generation game.cpp ${MAZE_SRC} ${MAZE_HEADERS})
 
-target_include_directories(maze INTERFACE maze)
-target_link_libraries(maze PRIVATE engine)
+target_include_directories(maze_generation INTERFACE maze)
+target_link_libraries(maze_generation PRIVATE engine)
 
-emscripten(maze)
+emscripten(maze_generation)
