@@ -12,6 +12,18 @@
 
 class AStarSearch : public Search
 {
+private:
+  struct GridNode
+  {
+    int cost;
+    batteries::grid_location<int> location;
+
+    bool operator<(const GridNode &other) const
+    {
+      return cost < other.cost;
+    }
+  };
+
 public:
   AStarSearch() = default;
   std::string GetName() override { return "A* Search"; };
@@ -26,7 +38,6 @@ private:
 
 private:
   bool initialized = false;
-  std::priority_queue<std::tuple<batteries::grid_location<int>, int>> frontier;
-  // std::vector<batteries::grid_location<int>> frontier;
+  std::priority_queue<GridNode> frontier;
   std::unordered_map<batteries::grid_location<int>, bool> reached;
 };

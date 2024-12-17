@@ -1,8 +1,6 @@
 // engine
+#include "common/color.h"
 #include "graphics/graphics.h"
-
-// batteries
-#include "batteries/colors.h"
 
 #include "greedysearch.h"
 
@@ -61,14 +59,14 @@ void GreedySearch::Render()
   // while (!tmp.empty())
   // {
   //   auto tile = tmp.front();
-  //   engine::graphics::set_color(colors::BlueViolet);
+  //   engine::graphics::set_color(BlueViolet);
   //   engine::graphics::rectangle(engine::graphics::DrawMode::DRAW_MODE_LINE, tile.x * 16, tile.y * 16, 16, 16);
   //   tmp.pop();
   // }
 
   for (const auto &coord : frontier)
   {
-    engine::graphics::set_color(colors::BlueViolet);
+    engine::graphics::set_color(BlueViolet);
     engine::graphics::rectangle(engine::graphics::DrawMode::DRAW_MODE_LINE, coord.x * 16, coord.y * 16, 16, 16);
   }
 }

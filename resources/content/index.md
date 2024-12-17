@@ -17,7 +17,7 @@ Before working on any project it's important to understand the [development envi
 
 ### Supplementary Reading
 
-*   [OpenGL SuperBible][]
+*   [AI for Games, Third Edition][]
 
 
 ### Assignments
@@ -27,6 +27,7 @@ Before working on any project it's important to understand the [development envi
 *   [assignment 3][] - Tower Defense
 *   [assignment 4][] - Catch the Cat
 *   [assignment 5][] - Flocking
+*   [assignment 6][] - Ants
 
 
 ### Final Project
@@ -35,11 +36,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 
 [@tolstenko]: https://github.com/tolstenko
-[OpenGL SuperBible]: https://www.openglsuperbible.com/
+[OpenGL SuperBible]: https://www.amazon.ca/AI-Games-Third-Ian-Millington-ebook/dp/B07PYGNV64?ref_=ast_author_mpb
 [FAQ]: faq.html
 [assignment 1]: cellular_automata.html
 [assignment 2]: maze_generation.html
 [assignment 3]: tower_defense.html
 [assignment 4]: catch_the_cat.html
 [assignment 5]: flocking.html
+[assignment 6]: ants.html
 [development environment]: environment.html

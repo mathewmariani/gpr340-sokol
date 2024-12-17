@@ -12,7 +12,7 @@ bool AStarSearch::Step(World &world)
 
     // add to frontier
     auto start = world.GetStart();
-    frontier.push({*start, 0});
+    frontier.push((GridNode){.cost = 0, .location = *start});
     reached.insert({*start, true});
 
     return true;
@@ -24,16 +24,16 @@ bool AStarSearch::Step(World &world)
   }
 
   /* check for visitable neighbors */
-  auto current = std::get<0>(frontier.top());
+  auto current = frontier.top().location;
   auto visitables = getVisitables(world, current);
 
-  int priority;
+  int priority = 0;
   for (const auto &next : visitables)
   {
     if (!reached.contains(next))
     {
       // priority = ManhattanDistance(goal, next)
-      frontier.push({next, priority});
+      frontier.push((GridNode){.cost = priority, .location = next});
       reached.insert({next, true});
     };
   }
@@ -58,7 +58,7 @@ void AStarSearch::Render()
   auto tmp = frontier;
   while (!tmp.empty())
   {
-    auto tile = std::get<0>(tmp.top());
+    auto tile = tmp.top().location;
     engine::graphics::set_color(BlueViolet);
     engine::graphics::rectangle(engine::graphics::DrawMode::DRAW_MODE_LINE, tile.x * 16, tile.y * 16, 16, 16);
     tmp.pop();
