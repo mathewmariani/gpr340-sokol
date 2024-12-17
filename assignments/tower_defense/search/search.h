@@ -12,9 +12,8 @@ public:
 
   virtual std::string GetName() = 0;
 
-  virtual bool Step(World &world) = 0;
   virtual void Clear(World &world) = 0;
-  virtual void Render() = 0;
+  virtual void Find(World &world, const batteries::grid_location<int> &start) = 0;
 
 protected:
   inline bool IsPositionInBounds(const World &world, const batteries::grid_location<int> &tile) const

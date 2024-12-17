@@ -69,11 +69,11 @@ namespace maze
 {
   static void step()
   {
-    auto *solver = state.searchers[state.demo.rule_index].get();
-    if (!solver->Step(state.world))
-    {
-      state.simulator.is_simulating = false;
-    }
+    // auto *solver = state.searchers[state.demo.rule_index].get();
+    // if (!solver->Step(state.world))
+    // {
+    //   state.simulator.is_simulating = false;
+    // }
   }
 
   static void clear()
@@ -142,8 +142,8 @@ static void draw(void)
   /* draw nodes */
   state.world.Render();
 
-  auto *searcher = state.searchers[state.demo.rule_index].get();
-  searcher->Render();
+  // auto *searcher = state.searchers[state.demo.rule_index].get();
+  // searcher->Render();
 
   auto x = engine::mouse::get_x();
   auto y = engine::mouse::get_y();
