@@ -13,6 +13,7 @@ SOKOL_LOG_H="$SOKOL_PREFIX/sokol_log.h"
 
 # utils
 SOKOL_IMGUI_H="$SOKOL_PREFIX/util/sokol_imgui.h"
+SOKOL_GL_H="$SOKOL_PREFIX/util/sokol_gl.h"
 
 # license
 SOKOL_LICENSE="$SOKOL_PREFIX/LICENSE"
@@ -29,6 +30,7 @@ curl $SOKOL_LOG_H > $OUTPUT/sokol_log.h
 
 # utils
 curl $SOKOL_IMGUI_H > $OUTPUT/sokol_imgui.h
+curl $SOKOL_GL_H > $OUTPUT/sokol_gl.h
 
 # license
 curl $SOKOL_LICENSE > $OUTPUT/LICENSE

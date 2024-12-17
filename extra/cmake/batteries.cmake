@@ -19,7 +19,6 @@ if(BUILD_WITH_BATTERIES)
   add_library(batteries STATIC ${BATTERIES_FILES})
   # target_include_directories(batteries INTERFACE ${BATTERIES_DIR})
 
-  target_link_libraries(batteries PRIVATE fast_obj)
   target_link_libraries(batteries PRIVATE glm)
   target_link_libraries(batteries PRIVATE sokol)
 endif()

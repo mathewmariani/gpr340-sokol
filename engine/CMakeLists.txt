@@ -52,12 +52,12 @@ set(ENGINE_HEADERS
   ${MOUSE_HEADERS})
 
 add_library(engine STATIC platform.cpp ${ENGINE_SRC} ${ENGINE_HEADERS})
-# target_include_directories(engine PUBLIC src libs)
+target_include_directories(engine PUBLIC . ../libs)
 
 # privately linked libraries
-target_link_libraries(engine PRIVATE sokol)
-target_link_libraries(engine PRIVATE dbgui)
-target_link_libraries(engine PRIVATE stb)
+target_link_libraries(engine PUBLIC sokol)
+target_link_libraries(engine PUBLIC dbgui)
+target_link_libraries(engine PUBLIC stb)
 
 # publicly linked libraries
 target_link_libraries(engine PUBLIC imgui)

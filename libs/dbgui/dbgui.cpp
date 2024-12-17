@@ -1,13 +1,13 @@
 /* sokol */
-#include "sokol/sokol_gfx.h"
-#include "sokol/sokol_app.h"
-#include "sokol/sokol_glue.h"
+#include "../sokol/sokol_gfx.h"
+#include "../sokol/sokol_app.h"
+#include "../sokol/sokol_glue.h"
 
 /* imgui */
-#include "imgui/imgui.h"
+#include "../imgui/imgui.h"
 
 #define SOKOL_IMGUI_IMPL
-#include "sokol/sokol_imgui.h"
+#include "../sokol/sokol_imgui.h"
 
 extern "C"
 {

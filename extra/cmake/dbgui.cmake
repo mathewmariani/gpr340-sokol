@@ -10,6 +10,7 @@ if(BUILD_WITH_DBGUI)
     ${DBGUI_DIR}/dbgui.h)
 
   add_library(dbgui STATIC ${DBGUI_FILES})
+  target_include_directories(dbgui PUBLIC ..)
 
   target_link_libraries(dbgui PRIVATE imgui)
   target_link_libraries(dbgui PRIVATE sokol)
