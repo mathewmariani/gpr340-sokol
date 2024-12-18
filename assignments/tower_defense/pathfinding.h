@@ -2,6 +2,7 @@
 
 #include "world.h"
 
+#include <algorithm>
 #include <string>
 
 class Pathfinding
@@ -42,9 +43,14 @@ protected:
   static std::vector<batteries::grid_location<int>> getVisitables(const World &world, const batteries::grid_location<int> &point)
   {
     std::vector<batteries::grid_location<int>> visitables;
-    batteries::grid_location<int> next{0, 0};
+    auto neigbors = batteries::grid_location<int>::VonNewmanNeighborhood;
+    if ((point.x + point.y) % 2 == 0)
+    {
+      std::reverse(neigbors.begin(), neigbors.end());
+    }
 
-    for (const auto &delta : batteries::grid_location<int>::VonNewmanNeighborhood)
+    batteries::grid_location<int> next{0, 0};
+    for (const auto &delta : neigbors)
     {
       next = point + delta;
       if (IsPositionInBounds(world, next) && (world.GetNodeType(next) != NodeType::Wall))
