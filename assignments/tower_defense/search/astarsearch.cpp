@@ -1,10 +1,24 @@
-// engine
-#include "graphics/graphics.h"
-
-#include "astarsearch.h"
+#include "../pathfinding.h"
 #include "../heuristic/heuristic.h"
 
-std::unordered_map<batteries::grid_location<int>, batteries::grid_location<int>> AStarSearch::Find(World &world, const batteries::grid_location<int> &start)
+// batteries
+#include "batteries/grid_location.h"
+
+#include <queue>
+#include <vector>
+
+struct GridNode
+{
+  int cost;
+  batteries::grid_location<int> location;
+
+  bool operator<(const GridNode &other) const
+  {
+    return cost < other.cost;
+  }
+};
+
+std::unordered_map<batteries::grid_location<int>, batteries::grid_location<int>> Pathfinding::AStarSearch(const World &world, const batteries::grid_location<int> &start)
 {
   std::priority_queue<GridNode> frontier;
   frontier.push((GridNode){.cost = 0, .location = start});
@@ -33,27 +47,4 @@ std::unordered_map<batteries::grid_location<int>, batteries::grid_location<int>>
   }
 
   return came_from;
-}
-
-std::vector<batteries::grid_location<int>> AStarSearch::getVisitables(World &world, const batteries::grid_location<int> &point)
-{
-  std::vector<batteries::grid_location<int>> visitables;
-  batteries::grid_location<int> next{0, 0};
-
-  for (const auto &delta : batteries::grid_location<int>::VonNewmanNeighborhood)
-  {
-    next = point + delta;
-    if (IsPositionInBounds(world, next) && (world.GetNodeType(next) != NodeType::Wall))
-    {
-      visitables.emplace_back(next);
-    }
-  }
-
-  return visitables;
-}
-
-std::vector<batteries::grid_location<int>> AStarSearch::getVisitedNeighbors(World &world, const batteries::grid_location<int> &point)
-{
-  std::vector<batteries::grid_location<int>> neighbors;
-  return neighbors;
 }

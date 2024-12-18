@@ -1,10 +1,13 @@
-// engine
-#include "common/color.h"
-#include "graphics/graphics.h"
+#include "../pathfinding.h"
+#include "../heuristic/heuristic.h"
 
-#include "greedysearch.h"
+// batteries
+#include "batteries/grid_location.h"
 
-std::unordered_map<batteries::grid_location<int>, batteries::grid_location<int>> GreedySearch::Find(World &world, const batteries::grid_location<int> &start)
+#include <unordered_map>
+#include <vector>
+
+std::unordered_map<batteries::grid_location<int>, batteries::grid_location<int>> Pathfinding::GreedySearch(const World &world, const batteries::grid_location<int> &start)
 {
   std::vector<batteries::grid_location<int>> frontier;
   frontier.push_back(start);
@@ -31,27 +34,4 @@ std::unordered_map<batteries::grid_location<int>, batteries::grid_location<int>>
   }
 
   return came_from;
-}
-
-std::vector<batteries::grid_location<int>> GreedySearch::getVisitables(World &world, const batteries::grid_location<int> &point)
-{
-  std::vector<batteries::grid_location<int>> visitables;
-  batteries::grid_location<int> next{0, 0};
-
-  for (const auto &delta : batteries::grid_location<int>::VonNewmanNeighborhood)
-  {
-    next = point + delta;
-    if (IsPositionInBounds(world, next) && (world.GetNodeType(next) != NodeType::Wall))
-    {
-      visitables.emplace_back(next);
-    }
-  }
-
-  return visitables;
-}
-
-std::vector<batteries::grid_location<int>> GreedySearch::getVisitedNeighbors(World &world, const batteries::grid_location<int> &point)
-{
-  std::vector<batteries::grid_location<int>> neighbors;
-  return neighbors;
 }

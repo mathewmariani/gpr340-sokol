@@ -4,14 +4,8 @@
 #include "graphics/graphics.h"
 #include "imgui/imgui.h"
 
-// search
-#include "search/astarsearch.h"
-#include "search/breadthfirstsearch.h"
-#include "search/dijkstrasearch.h"
-#include "search/greedysearch.h"
-#include "search/search.h"
-
 #include "world.h"
+#include "pathfinding.h"
 
 #include <vector>
 #include <memory>
@@ -48,12 +42,24 @@ static struct
   } mouse;
 
   World world;
-  std::vector<std::unique_ptr<Search>> searchers;
   std::vector<batteries::grid_location<int>> path;
 } state;
 
 batteries::grid_location<int> start{0, 0};
 batteries::grid_location<int> goal{16, 16};
+
+using SearchFunction = std::unordered_map<batteries::grid_location<int>, batteries::grid_location<int>> (*)(const World &, const batteries::grid_location<int> &);
+struct MapEntry
+{
+  std::string name;
+  SearchFunction fn;
+};
+std::vector<MapEntry> search_algorithms{
+    {"AStarSearch", Pathfinding::AStarSearch},
+    {"BreadthFirstSearch", Pathfinding::BreadthFirstSearch},
+    {"DijkstraSearch", Pathfinding::DijkstraSearch},
+    {"GreedySearch", Pathfinding::GreedySearch},
+};
 
 inline batteries::grid_location<int> mouse_to_tile(float x, float y)
 {
@@ -73,7 +79,7 @@ namespace maze
 {
   static void step()
   {
-    // auto *solver = state.searchers[state.demo.rule_index].get();
+    // auto *solver = search_algorithms[state.demo.rule_index].get();
     // if (!solver->Step(state.world))
     // {
     //   state.simulator.is_simulating = false;
@@ -84,26 +90,17 @@ namespace maze
   {
     state.simulator.is_simulating = false;
     state.world.Resize(state.demo.current_size);
-    auto *solver = state.searchers[state.demo.rule_index].get();
   }
 }
 
 static void load(void)
 {
-  /* initialize searchers */
-  state.searchers.push_back(std::unique_ptr<AStarSearch>(new AStarSearch()));
-  state.searchers.push_back(std::unique_ptr<DijkstraSearch>(new DijkstraSearch()));
-  state.searchers.push_back(std::unique_ptr<BreadthFirstSearch>(new BreadthFirstSearch()));
-  state.searchers.push_back(std::unique_ptr<GreedySearch>(new GreedySearch()));
-
   maze::clear();
-
   engine::mouse::set_cursor(engine::mouse::mouse_cursor::MOUSECURSOR_POINTING_HAND);
 }
 
 static void cleanup(void)
 {
-  state.searchers.clear();
 }
 
 static void update(float dt)
@@ -178,15 +175,16 @@ static void gui()
   ImGui::Separator();
   ImGui::Text("Search Algorithm");
   ImGui::Separator();
-  if (ImGui::BeginCombo("searchers", state.searchers[state.demo.rule_index]->GetName().c_str()))
+  if (ImGui::BeginCombo("searchers", search_algorithms[state.demo.rule_index].name.c_str()))
   {
-    for (auto n = 0; n < state.searchers.size(); ++n)
+    for (auto n = 0; n < search_algorithms.size(); ++n)
     {
-      auto is_selected = (state.searchers[state.demo.rule_index]->GetName() == state.searchers[n]->GetName());
-      if (ImGui::Selectable(state.searchers[n]->GetName().c_str(), is_selected))
+      auto is_selected = (search_algorithms[state.demo.rule_index].name == search_algorithms[n].name);
+      if (ImGui::Selectable(search_algorithms[n].name.c_str(), is_selected))
       {
         state.demo.rule_index = n;
-        maze::clear();
+        auto t = search_algorithms[n].fn(state.world, start);
+        state.path = Pathfinding::ConstructPath(t, start, goal);
       }
       if (is_selected)
       {
@@ -237,25 +235,6 @@ static void gui()
       state.world.Resize(new_width);
     }
   }
-  if (ImGui::BeginCombo("Search", state.searchers[state.demo.rule_index]->GetName().c_str()))
-  {
-    for (auto n = 0; n < state.searchers.size(); ++n)
-    {
-      auto is_selected = (state.searchers[state.demo.rule_index]->GetName() == state.searchers[n]->GetName());
-      if (ImGui::Selectable(state.searchers[n]->GetName().c_str(), is_selected))
-      {
-        state.demo.rule_index = n;
-        auto t = state.searchers[n].get()->Find(state.world, start);
-        state.path = Search::ConstructPath(t, start, goal);
-      }
-      if (is_selected)
-      {
-        ImGui::SetItemDefaultFocus();
-      }
-    }
-    ImGui::EndCombo();
-  }
-
   ImGui::End();
 }
 
