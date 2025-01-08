@@ -1,34 +1,38 @@
 #include "../pathfinding.h"
 #include "../heuristic/heuristic.h"
 
-// batteries
-#include "batteries/grid_location.h"
-
 #include <unordered_map>
 #include <vector>
 
-std::unordered_map<batteries::grid_location<int>, batteries::grid_location<int>> Pathfinding::BreadthFirstSearch(const World &world, const batteries::grid_location<int> &start)
+#include <map>
+#include <utility>
+#include <vector>
+
+using Frontier = std::vector<batteries::grid_location<int>>;
+using CameFrom = std::map<batteries::grid_location<int>, batteries::grid_location<int>>;
+
+std::pair<Frontier, CameFrom> Pathfinding::BreadthFirstSearch(const batteries::grid_world &grid, const batteries::grid_location<int> &start, int step_limit)
 {
-  std::vector<batteries::grid_location<int>> frontier;
+  Frontier frontier;
+  CameFrom came_from;
+
   frontier.push_back(start);
+  came_from[start] = start;
 
-  std::unordered_map<batteries::grid_location<int>, batteries::grid_location<int>> came_from;
-  came_from.insert({start, start});
-
-  while (!frontier.empty())
+  auto i = 0;
+  while (!frontier.empty() && i++ < step_limit)
   {
     auto current = frontier.front();
-    for (const auto &next : getVisitables(world, current))
+    frontier.erase(frontier.begin());
+    for (const auto &next : grid.neighbors(current))
     {
-      if (!came_from.contains(next))
+      if (came_from.find(next) == came_from.end())
       {
         frontier.push_back(next);
-        came_from.insert({next, current});
-      };
+        came_from[next] = current;
+      }
     }
-
-    frontier.erase(frontier.begin());
   }
 
-  return came_from;
+  return {frontier, came_from};
 }

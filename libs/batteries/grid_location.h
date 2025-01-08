@@ -38,6 +38,10 @@ namespace batteries
       y = rhs.y;
       return (*this);
     };
+    bool operator<(const grid_location &other) const
+    {
+      return x < other.x || (x == other.x && y < other.y);
+    }
     bool operator==(const grid_location &other) const
     {
       return (x == other.x && y == other.y);

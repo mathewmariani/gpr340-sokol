@@ -10,8 +10,7 @@ set(TOWERDEFENSE_HEADERS
   objects/object.h
 
   # rules
-  pathfinding.h
-  world.h)
+  pathfinding.h)
 
 set(TOWERDEFENSE_SRC
   # objects
@@ -19,13 +18,12 @@ set(TOWERDEFENSE_SRC
   objects/start.cpp
 
   # search
-  search/astarsearch.cpp
+  # search/astarsearch.cpp
   search/breadthfirstsearch.cpp
-  search/dijkstrasearch.cpp
-  search/greedysearch.cpp
+  # search/dijkstrasearch.cpp
+  # search/greedysearch.cpp
   
   # rules
-  world.cpp
   game.cpp)
 
 add_executable(tower_defense game.cpp ${TOWERDEFENSE_SRC} ${TOWERDEFENSE_HEADERS})

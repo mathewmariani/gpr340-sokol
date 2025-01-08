@@ -18,7 +18,7 @@ struct GridNode
   }
 };
 
-std::unordered_map<batteries::grid_location<int>, batteries::grid_location<int>> Pathfinding::AStarSearch(const World &world, const batteries::grid_location<int> &start)
+std::unordered_map<batteries::grid_location<int>, batteries::grid_location<int>> Pathfinding::AStarSearch(const World &world, const batteries::grid_location<int> &start, int step_limit)
 {
   std::priority_queue<GridNode> frontier;
   frontier.push((GridNode){.cost = 0, .location = start});
@@ -26,7 +26,8 @@ std::unordered_map<batteries::grid_location<int>, batteries::grid_location<int>>
   std::unordered_map<batteries::grid_location<int>, batteries::grid_location<int>> came_from;
   came_from.insert({start, start});
 
-  while (!frontier.empty())
+  auto i = 0;
+  while (!frontier.empty() && i++ < step_limit)
   {
     /* check for visitable neighbors */
     auto current = frontier.top().location;

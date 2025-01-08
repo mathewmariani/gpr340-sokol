@@ -9,6 +9,7 @@ if(BUILD_WITH_BATTERIES)
     ${BATTERIES_DIR}/agent.h
     ${BATTERIES_DIR}/finite_grid.h
     ${BATTERIES_DIR}/grid_location.h
+    ${BATTERIES_DIR}/grid_world.h
     ${BATTERIES_DIR}/hexgrid.h
     ${BATTERIES_DIR}/hexgrid_location.h)
 
