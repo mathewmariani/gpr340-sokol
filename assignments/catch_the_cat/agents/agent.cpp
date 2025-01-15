@@ -1,7 +1,7 @@
 #include "agent.h"
 #include "../world.h"
 
-std::vector<Hex<int>> Agent::GeneratePath(const World &world)
+std::vector<batteries::hexgrid_location<int>> Agent::GeneratePath(const World &world)
 {
   return {};
 }

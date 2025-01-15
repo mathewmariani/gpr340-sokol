@@ -33,7 +33,7 @@ struct
 
   // Cat cat;
   // Catcher catcher;
-  Hexgrid<bool> grid;
+  batteries::hexgrid<bool> grid;
   World world;
 } state;
 

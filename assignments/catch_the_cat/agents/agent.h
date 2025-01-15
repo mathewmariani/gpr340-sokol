@@ -11,15 +11,15 @@ public:
   explicit Agent() = default;
   ~Agent() = default;
 
-  virtual Hex<int> Move(World &world) = 0;
+  virtual batteries::hexgrid_location<int> Move(World &world) = 0;
 
-  std::vector<Hex<int>> GeneratePath(const World &world);
+  std::vector<batteries::hexgrid_location<int>> GeneratePath(const World &world);
 
-  inline const Hex<int> GetPosition() const
+  inline const batteries::hexgrid_location<int> GetPosition() const
   {
     return position;
   };
 
 protected:
-  Hex<int> position;
+  batteries::hexgrid_location<int> position;
 };

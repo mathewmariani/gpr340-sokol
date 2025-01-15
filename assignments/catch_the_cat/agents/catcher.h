@@ -10,5 +10,5 @@ class Catcher : public Agent
 {
 public:
   explicit Catcher() = default;
-  Hex<int> Move(World &world) override;
+  batteries::hexgrid_location<int> Move(World &world) override;
 };

@@ -21,5 +21,5 @@ private:
 
 private:
   int size;
-  Hexgrid<bool> grid;
+  batteries::hexgrid<bool> grid;
 };

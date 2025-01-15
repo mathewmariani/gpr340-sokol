@@ -1,102 +1,38 @@
-// engine
-#include "common/color.h"
-#include "graphics/graphics.h"
+#include "../pathfinding.h"
+#include "../heuristic/heuristic.h"
 
-#include "breadthfirstsearch.h"
+#include <unordered_map>
+#include <vector>
 
-// static std::vector<batteries::grid_location<int>> deltas{
-//     batteries::grid_location<int>::up,
-//     batteries::grid_location<int>::down,
-//     batteries::grid_location<int>::left,
-//     batteries::grid_location<int>::right,
-// };
+#include <map>
+#include <utility>
+#include <vector>
 
-bool BreadthFirstSearch::Step(World &world)
+using Frontier = std::vector<batteries::grid_location<int>>;
+using CameFrom = std::map<batteries::grid_location<int>, batteries::grid_location<int>>;
+
+std::pair<Frontier, CameFrom> Pathfinding::BreadthFirstSearch(const batteries::grid_world &grid, const batteries::grid_location<int> &start, int step_limit)
 {
-  if (!initialized)
+  Frontier frontier;
+  CameFrom came_from;
+
+  frontier.push_back(start);
+  came_from[start] = start;
+
+  auto i = 0;
+  while (!frontier.empty() && i++ < step_limit)
   {
-    initialized = true;
-
-    // add to frontier
-    auto start = world.GetStart();
-    frontier.push_back(*start);
-    reached.insert({*start, true});
-
-    return true;
-  }
-
-  if (frontier.empty())
-  {
-    return false;
-  }
-
-  /* check for visitable neighbors */
-  auto current = frontier.front();
-  auto visitables = getVisitables(world, current);
-
-  for (const auto &next : visitables)
-  {
-    if (!reached.contains(next))
+    auto current = frontier.front();
+    frontier.erase(frontier.begin());
+    for (const auto &next : grid.neighbors(current))
     {
-      frontier.push_back(next);
-      reached.insert({next, true});
-    };
-  }
-
-  frontier.erase(frontier.begin());
-  // frontier.pop();
-
-  return true;
-}
-
-void BreadthFirstSearch::Clear(World &world)
-{
-  initialized = false;
-  frontier.clear();
-  reached.clear();
-  // while (!frontier.empty())
-  // {
-  //   frontier.pop();
-  // }
-}
-
-void BreadthFirstSearch::Render()
-{
-  // auto tmp = frontier;
-  // while (!tmp.empty())
-  // {
-  //   auto tile = tmp.front();
-  //   engine::graphics::set_color(BlueViolet);
-  //   engine::graphics::rectangle(engine::graphics::DrawMode::DRAW_MODE_LINE, tile.x * 16, tile.y * 16, 16, 16);
-  //   tmp.pop();
-  // }
-
-  for (const auto &coord : frontier)
-  {
-    engine::graphics::set_color(BlueViolet);
-    engine::graphics::rectangle(engine::graphics::DrawMode::DRAW_MODE_LINE, coord.x * 16, coord.y * 16, 16, 16);
-  }
-}
-
-std::vector<batteries::grid_location<int>> BreadthFirstSearch::getVisitables(World &world, const batteries::grid_location<int> &point)
-{
-  std::vector<batteries::grid_location<int>> visitables;
-  batteries::grid_location<int> next{0, 0};
-
-  for (const auto &delta : batteries::grid_location<int>::VonNewmanNeighborhood)
-  {
-    next = point + delta;
-    if (IsPositionInBounds(world, next) && (world.GetNodeType(next) != NodeType::Wall))
-    {
-      visitables.emplace_back(next);
+      if (came_from.find(next) == came_from.end())
+      {
+        frontier.push_back(next);
+        came_from[next] = current;
+      }
     }
   }
 
-  return visitables;
-}
-
-std::vector<batteries::grid_location<int>> BreadthFirstSearch::getVisitedNeighbors(World &world, const batteries::grid_location<int> &point)
-{
-  std::vector<batteries::grid_location<int>> neighbors;
-  return neighbors;
+  return {frontier, came_from};
 }
