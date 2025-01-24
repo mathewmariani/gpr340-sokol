@@ -1,3 +1,7 @@
+---
+layout: "../layouts/Page.astro"
+---
+
 # Artificial Intelligence for Games (GPR 340)
 
 <div class="alert alert-warning" role="alert">
@@ -39,8 +43,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 [OpenGL SuperBible]: https://www.amazon.ca/AI-Games-Third-Ian-Millington-ebook/dp/B07PYGNV64?ref_=ast_author_mpb
 
 <!-- pages -->
-[FAQ]: faq/faq
-[development environment]: environment/environment
+[FAQ]: faq
+[development environment]: environment
 
 <!-- assignments -->
 [assignment 1]: assignments/cellular_automata
