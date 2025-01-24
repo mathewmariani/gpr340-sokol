@@ -1,3 +1,7 @@
+---
+layout: "../layouts/Page.astro"
+---
+
 # Artificial Intelligence for Games (GPR 340)
 
 <div class="alert alert-warning" role="alert">
@@ -37,11 +41,15 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 [@tolstenko]: https://github.com/tolstenko
 [OpenGL SuperBible]: https://www.amazon.ca/AI-Games-Third-Ian-Millington-ebook/dp/B07PYGNV64?ref_=ast_author_mpb
-[FAQ]: faq.html
-[assignment 1]: cellular_automata.html
-[assignment 2]: maze_generation.html
-[assignment 3]: tower_defense.html
-[assignment 4]: catch_the_cat.html
-[assignment 5]: flocking.html
-[assignment 6]: ants.html
-[development environment]: environment.html
+
+<!-- pages -->
+[FAQ]: faq
+[development environment]: environment
+
+<!-- assignments -->
+[assignment 1]: assignments/cellular_automata
+[assignment 2]: assignments/maze_generation
+[assignment 3]: assignments/tower_defense
+[assignment 4]: assignments/catch_the_cat
+[assignment 5]: assignments/flocking
+[assignment 6]: assignments/ants

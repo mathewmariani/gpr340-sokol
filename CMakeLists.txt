@@ -27,3 +27,9 @@ set_property(DIRECTORY engine PROPERTY FOLDER "engine")
 # assignments
 add_subdirectory(assignments)
 set_property(DIRECTORY assignments PROPERTY FOLDER "assignments")
+
+# symlinks
+execute_process(
+  COMMAND ${CMAKE_COMMAND} -E create_symlink
+  "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE}"
+  "${CMAKE_CURRENT_SOURCE_DIR}/website/public/demos")
