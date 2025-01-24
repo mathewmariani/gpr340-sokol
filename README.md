@@ -9,12 +9,13 @@ The syllabus for this course was developed by Alexandre Tolstenko ([@tolstenko](
 
 ## Repository Layout
 
-*   `assignments/` – Assignment template and assets.
+*   `assignments/` – Assignment source code.
 *   `build/` - Intermediate files and other build output. 
+*   `dist/` - Website build output. 
 *   `engine/` - A small educational engine.
 *   `extra/` - Files used during the build process.
 *   `libs/` - Required external libraries.
-*   `resources/` – Scripts and resources used for building the website.
+*   `website/` – Resources used for building the website.
 
 
 ## Contributing
